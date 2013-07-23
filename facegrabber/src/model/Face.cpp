@@ -7,7 +7,7 @@
 
 #include "Face.h"
 
-namespace facedetect {
+namespace facegrabber {
 
 Face::Face(CvRect * face, CvRect * eyeL, CvRect * eyeR, CvRect * eyeBL,
 		CvRect * eyeBR, CvRect * nose, CvRect * mouth) {
@@ -18,6 +18,9 @@ Face::Face(CvRect * face, CvRect * eyeL, CvRect * eyeR, CvRect * eyeBL,
 	copy(eyeBR, &this->eyeBR);
 	copy(nose, &this->nose);
 	copy(mouth, &this->mouth);
+}
+
+Face::~Face() {
 }
 
 void Face::copy(CvRect * from, CvRect * to) {
@@ -35,9 +38,6 @@ void Face::copy(CvRect * from, CvRect * to) {
 			to->height = 0;
 		}
 	}
-}
-
-Face::~Face() {
 }
 
 /**
@@ -95,49 +95,49 @@ void Face::setMouth(CvRect * r) {
  * @return
  */
 CvRect * Face::getFace() {
-	return face;
+	return &face;
 }
 /**
  *
  * @return
  */
 CvRect * Face::getEyeL() {
-	return eyeL;
+	return &eyeL;
 }
 /**
  *
  * @return
  */
 CvRect * Face::getEyeR() {
-	return eyeR;
+	return &eyeR;
 }
 /**
  *
  * @return
  */
 CvRect * Face::getEyeBrowL() {
-	return eyeBL;
+	return &eyeBL;
 }
 /**
  *
  * @return
  */
 CvRect * Face::getEyeBrowR() {
-	return eyeBR;
+	return &eyeBR;
 }
 /**
  *
  * @return
  */
 CvRect * Face::getNose() {
-	return nose;
+	return &nose;
 }
 /**
  *
  * @return
  */
 CvRect * Face::getMouth() {
-	return mouth;
+	return &mouth;
 }
 
 /**

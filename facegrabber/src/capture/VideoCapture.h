@@ -11,9 +11,9 @@
 #include <opencv2/opencv.hpp>
 #include "ICapture.h"
 
-namespace facedetect {
+namespace facegrabber {
 
-class VideoCapture: public facedetect::ICapture {
+class VideoCapture: facegrabber::ICapture {
 private:
 	CvCapture* capture;
 public:
@@ -21,13 +21,28 @@ public:
 	 *
 	 * @param
 	 */
-	VideoCapture(char *);
+	VideoCapture(char * filePath);
 	virtual ~VideoCapture();
 	/**
 	 *
 	 * @return
 	 */
 	CvCapture* getCapture();
+	/**
+	 *
+	 * @return
+	 */
+	bool init();
+	/**
+	 *
+	 * @return
+	 */
+	bool isReady();
+	/**
+	 *
+	 * @return
+	 */
+	IplImage * nextFrame();
 };
 
 } /* namespace facedetect */

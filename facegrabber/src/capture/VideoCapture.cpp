@@ -7,7 +7,7 @@
 
 #include "VideoCapture.h"
 
-namespace facedetect {
+namespace facegrabber {
 
 VideoCapture::VideoCapture(char * filePath) {
 	capture = cvCaptureFromAVI(filePath);

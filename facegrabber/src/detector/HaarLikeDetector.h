@@ -13,13 +13,9 @@
 
 using namespace cv;
 
-namespace facedetect {
+namespace facegrabber {
 
-class HaarLikeDetector: public facedetect::IDetector {
-
-private:
-	bool printRoi;
-	IplImage * currImg;
+class HaarLikeDetector: public facegrabber::IDetector {
 
 protected:
 	CascadeClassifier cascade_f;
@@ -27,6 +23,8 @@ protected:
 	CascadeClassifier cascade_er;
 	CascadeClassifier cascade_n;
 	CascadeClassifier cascade_m;
+	IplImage * currImg;
+	bool printRoi;
 
 	/**
 	 * \brief Set face area of a face region with the coordinate of the first face found.
@@ -34,7 +32,7 @@ protected:
 	 * @param facearea
 	 * @return
 	 */
-	bool detectFace(IplImage*img, IFaceRegion & faceregion);
+	virtual bool detectFace(IplImage*img, IFaceRegion & faceregion);
 
 	/**
 	 * \brief Set features areas of a face region. It uses face area coordinate to increase accuracy.
@@ -42,7 +40,7 @@ protected:
 	 * @param facearea
 	 * @return
 	 */
-	bool detectFeatures(IplImage *img, IFaceRegion & faceregion);
+	virtual bool detectFeatures(IplImage *img, IFaceRegion & faceregion);
 
 public:
 	/**
@@ -58,6 +56,8 @@ public:
 			char * eyeRight_config_file, char * nose_config_file,
 			char * mouth_config_file, bool printRoi);
 	virtual ~HaarLikeDetector();
+
+	IFaceRegion & detect(IplImage * image);
 };
 
 } /* namespace facedetect */

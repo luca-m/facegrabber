@@ -8,12 +8,10 @@
 #ifndef ILOCATOR_H_
 #define ILOCATOR_H_
 
-namespace facedetect {
+namespace facegrabber {
 
 class ILocator {
 public:
-	ILocator();
-	virtual ~ILocator();
 };
 
 } /* namespace facedetect */

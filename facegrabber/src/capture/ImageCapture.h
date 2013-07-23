@@ -11,16 +11,36 @@
 #include <opencv2/opencv.hpp>
 #include "ICapture.h"
 
-namespace facedetect {
+namespace facegrabber {
 
-class ImageCapture: public facedetect::ICapture {
+class ImageCapture: public facegrabber::ICapture {
 
 private:
 	IplImage * image;
 
 public:
-	ImageCapture(char *);
+	/**
+	 *
+	 * @param filepath
+	 */
+	ImageCapture(char * filepath);
 	virtual ~ImageCapture();
+
+	/**
+	 *
+	 * @return
+	 */
+	bool init();
+	/**
+	 *
+	 * @return
+	 */
+	bool isReady();
+	/**
+	 *
+	 * @return
+	 */
+	IplImage * nextFrame();
 };
 
 } /* namespace facedetect */

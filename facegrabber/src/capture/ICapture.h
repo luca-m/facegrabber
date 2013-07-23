@@ -5,19 +5,18 @@
  *      Author: stk
  */
 
-#ifndef ICCAPTURE_H_
-#define ICCAPTURE_H_
+#ifndef ICAPTURE_H_
+#define ICAPTURE_H_
 
-namespace facedetect {
+#include <opencv2/opencv.hpp>
+
+namespace facegrabber {
 
 /**
  * \brief frame capture interface
  */
-class facedetect::ICapture {
+class ICapture {
 public:
-	virtual ~ICapture() {
-	}
-	;
 	/**
 	 *
 	 * @return

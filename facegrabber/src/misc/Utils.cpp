@@ -1,20 +1,16 @@
 /*
- * plots.cpp
+ * Utils.cpp
  *
  *  Created on: Jul 23, 2013
  *      Author: stk
  */
 
-#include <opencv2/opencv.hpp>
+#include "Utils.h"
 
-namespace misc {
-/**
- * \brief
- * @param window_title
- * @param src
- * @param channel_name ["blue"|"red"|"green"|"gray"]
- */
-void show_histogram(char* window_title, IplImage* src, char* channel_name) {
+namespace facegrabber {
+
+void show_histogram(char* window_title, IplImage* src,
+		char* channel_name) {
 	IplImage* img, *canvas;
 	int bins = 256;
 	int hist[bins];
@@ -61,13 +57,8 @@ void show_histogram(char* window_title, IplImage* src, char* channel_name) {
 	cvShowImage(window_title, canvas);
 	cvReleaseImage(&img);
 }
+;
 
-/**
- *
- * @param img
- * @param roiRect
- * @return
- */
 IplImage* getSubImg(IplImage* img, CvRect *roiRect) {
 	cvSetImageROI(img, *roiRect);
 	IplImage* subImg = cvCreateImage(cvSize(roiRect->width, roiRect->height),
@@ -76,6 +67,7 @@ IplImage* getSubImg(IplImage* img, CvRect *roiRect) {
 	cvResetImageROI(img);
 	return subImg;
 }
+;
 
 } /* namespace misc */
 

@@ -7,7 +7,7 @@
 
 #include "CamCapture.h"
 
-namespace facedetect {
+namespace facegrabber {
 
 CamCapture::CamCapture(int camNum) {
 	camNumber = camNum;
@@ -23,12 +23,12 @@ void CamCapture::setCamCapture(CvCapture* camCapt) {
 	this->camCapture = camCapt;
 }
 
-bool CamCapture::init() {
+bool CamCapture::init(void) {
 	this->setCamCapture(cvCaptureFromCAM(this->getCamNumber()));
 	return this->isReady();
 }
 
-bool CamCapture::isReady() {
+bool CamCapture::isReady(void) {
 	return (this->getCapture() != 0 ? true : false);
 }
 

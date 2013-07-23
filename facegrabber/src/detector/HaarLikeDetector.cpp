@@ -6,51 +6,12 @@
  */
 
 #include "HaarLikeDetector.h"
+#include "../model/Face.h"
 
 using namespace std;
 
-namespace facedetect {
+namespace facegrabber {
 
-HaarLikeDetector::HaarLikeDetector(char * face_config_file,
-		char * eyeLeft_config_file, char * eyeRight_config_file,
-		char * nose_config_file, char * mouth_config_file, bool printRoi) {
-
-	cascade_f.load(face_config_file);
-	cascade_el.load(eyeLeft_config_file);
-	cascade_er.load(eyeRight_config_file);
-	cascade_n.load(nose_config_file);
-	cascade_m.load(mouth_config_file);
-
-	assert(
-			!cascade_f.empty() && !cascade_el.empty() && !cascade_n.empty()
-					&& !cascade_m.empty());
-	this->currImg = 0;
-	this->printRoi = printRoi;
-}
-
-HaarLikeDetector::~HaarLikeDetector() {
-}
-
-IFaceRegion & HaarLikeDetector::detect(IplImage * frame) {
-	IFaceRegion & face = new Face(0, 0, 0, 0, 0, 0, 0);
-	IplImage * im_gray;
-	if (frame == 0)
-		return face;
-
-	this->currImg = frame;
-	im_gray = cvCreateImage(cvSize(frame->width, frame->height), IPL_DEPTH_8U,
-			1);
-
-	cvEqualizeHist(im_gray, im_gray);
-
-	if (detectFace(im_gray, face)) {
-		detectFeatures(im_gray, face);
-	}
-
-	cvReleaseImage(&im_gray);
-
-	return face;
-}
 
 bool HaarLikeDetector::detectFace(IplImage * img, IFaceRegion & faceregion) {
 	vector<Rect> faces;
@@ -78,9 +39,6 @@ bool HaarLikeDetector::detectFeatures(IplImage * img,
 		IFaceRegion & faceregion) {
 	vector<Rect> eyeL, eyeR, noses, mouths;
 	CvRect eyeROIL, eyeROIR, noseROI, mouthROI, eyeBrow, *tmp_area;
-	bool hasEyes = false;
-	bool hasNose = false;
-	bool hasMouth = false;
 	tmp_area = faceregion.getFace();
 
 	/* Set the Region of Interest for lower pattern matching area */
@@ -121,7 +79,6 @@ bool HaarLikeDetector::detectFeatures(IplImage * img,
 		tmp_area->x += eyeROIL.x;
 		tmp_area->y += eyeROIL.y + tmp_area->height / 4;
 		faceregion.setEyeL(tmp_area);
-		hasEyes = true;
 	} else {
 		faceregion.setEyeL(0);
 	}
@@ -135,7 +92,6 @@ bool HaarLikeDetector::detectFeatures(IplImage * img,
 		tmp_area->x += eyeROIR.x;
 		tmp_area->y += eyeROIR.y;
 		faceregion.setEyeR(tmp_area);
-		hasEyes &= true;
 	} else {
 		faceregion.setEyeR(0);
 	}
@@ -150,7 +106,6 @@ bool HaarLikeDetector::detectFeatures(IplImage * img,
 		tmp_area->x += noseROI.x;
 		tmp_area->y += noseROI.y;
 		faceregion.setNose(tmp_area);
-		hasNose = true;
 	} else {
 		faceregion.setNose(0);
 	}
@@ -165,7 +120,6 @@ bool HaarLikeDetector::detectFeatures(IplImage * img,
 		tmp_area->x += mouthROI.x;
 		tmp_area->y += mouthROI.y;
 		faceregion.setMouth(tmp_area);
-		hasMouth = true;
 	} else {
 		faceregion.setMouth(0);
 	}
@@ -187,6 +141,48 @@ bool HaarLikeDetector::detectFeatures(IplImage * img,
 		faceregion.setEyeBrowR(&eyeBrow);
 	}
 	return faceregion.isComplete();
+}
+
+
+HaarLikeDetector::HaarLikeDetector(char * face_config_file,
+		char * eyeLeft_config_file, char * eyeRight_config_file,
+		char * nose_config_file, char * mouth_config_file, bool printRoi) {
+
+	cascade_f.load(face_config_file);
+	cascade_el.load(eyeLeft_config_file);
+	cascade_er.load(eyeRight_config_file);
+	cascade_n.load(nose_config_file);
+	cascade_m.load(mouth_config_file);
+
+	assert(
+			!cascade_f.empty() && !cascade_el.empty() && !cascade_n.empty()
+					&& !cascade_m.empty());
+	this->currImg = 0;
+	this->printRoi = printRoi;
+}
+
+HaarLikeDetector::~HaarLikeDetector() {
+}
+
+IFaceRegion & HaarLikeDetector::detect(IplImage * frame) {
+	IFaceRegion &face = * new Face(0, 0, 0, 0, 0, 0, 0);
+	IplImage * im_gray;
+	if (frame == 0)
+		return face;
+
+	this->currImg = frame;
+	im_gray = cvCreateImage(cvSize(frame->width, frame->height), IPL_DEPTH_8U,
+			1);
+
+	cvEqualizeHist(im_gray, im_gray);
+
+	if (this->detectFace(im_gray, face)) {
+		this->detectFeatures(im_gray, face);
+	}
+
+	cvReleaseImage(&im_gray);
+
+	return face;
 }
 
 }/* namespace facedetect */

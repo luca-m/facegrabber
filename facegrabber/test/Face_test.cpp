@@ -7,6 +7,6 @@
 
 #include "../src/model/Face.h"
 
-namespace facedetect {
+namespace facegrabber {
 
 } /* namespace facedetect */

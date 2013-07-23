@@ -7,7 +7,7 @@
 
 #include "ImageCapture.h"
 
-namespace facedetect {
+namespace facegrabber {
 
 ImageCapture::ImageCapture(char * filepath) {
 	image = cvLoadImage(filepath, CV_LOAD_IMAGE_COLOR);

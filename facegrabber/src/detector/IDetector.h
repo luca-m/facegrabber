@@ -8,18 +8,18 @@
 #ifndef IDETECTOR_H_
 #define IDETECTOR_H_
 
-namespace facedetect {
+#include "../model/IFaceRegion.h"
+
+namespace facegrabber {
 
 class IDetector {
 public:
-	IDetector();
-	virtual ~IDetector();
 	/**
 	 *
 	 * @param image
 	 * @return
 	 */
-	virtual IFaceRegion & detect(IplImage * image);
+	virtual IFaceRegion & detect(IplImage * image)=0;
 
 };
 

@@ -9,11 +9,10 @@
 #define CAMCAPTURE_H_
 
 #include "ICapture.h"
-#include <opencv2/opencv.hpp>
 
-namespace facedetect {
+namespace facegrabber {
 
-class CamCapture: public facedetect::ICapture {
+class CamCapture: public facegrabber::ICapture {
 
 private:
 	int camNumber;
@@ -22,17 +21,17 @@ private:
 protected:
 	/**
 	 *
-	 * @param
+	 * @param camCapt
 	 */
-	void setCamCapture(CvCapture*);
+	void setCamCapture(CvCapture* camCapt);
 
 public:
 	/**
 	 *
-	 * @param
+	 * @param camNum
 	 */
-	CamCapture(int);
-	virtual ~CamCapture();
+	CamCapture(int camNum);
+	~CamCapture();
 	/**
 	 *
 	 * @return
@@ -43,6 +42,21 @@ public:
 	 * @return
 	 */
 	CvCapture* getCapture();
+	/**
+	 *
+	 * @return
+	 */
+	bool init();
+	/**
+	 *
+	 * @return
+	 */
+	bool isReady();
+	/**
+	 *
+	 * @return
+	 */
+	IplImage * nextFrame();
 };
 
 } /* namespace facedetect */

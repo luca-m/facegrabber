@@ -8,15 +8,13 @@
 #ifndef FACE_H_
 #define FACE_H_
 
-#include <map>
-#include <string>
 #include "IFaceRegion.h"
 
 using namespace std;
 
-namespace facedetect {
+namespace facegrabber {
 
-class Face: public facedetect::IFaceRegion {
+class Face: public IFaceRegion {
 
 private:
 	/**
@@ -50,6 +48,119 @@ public:
 			CvRect * eyeBR, CvRect * nose, CvRect * mouth);
 
 	virtual ~Face();
+
+	/**
+	 *
+	 * @param r
+	 */
+	void setFace(CvRect * r);
+	/**
+	 *
+	 * @param r
+	 */
+	void setEyeL(CvRect * r);
+	/**
+	 *
+	 * @param r
+	 */
+	void setEyeR(CvRect * r);
+	/**
+	 *
+	 * @param r
+	 */
+	void setEyeBrowL(CvRect * r);
+	/**
+	 *
+	 * @param r
+	 */
+	void setEyeBrowR(CvRect * r);
+	/**
+	 *
+	 * @param r
+	 */
+	void setNose(CvRect * r);
+	/**
+	 *
+	 * @param r
+	 */
+	void setMouth(CvRect * r);
+
+	/**
+	 *
+	 * @return
+	 */
+	bool isComplete();
+
+	/**
+	 *
+	 * @return
+	 */
+	bool hasFace();
+	/**
+	 *
+	 * @return
+	 */
+	bool hasEyeL();
+	/**
+	 *
+	 * @return
+	 */
+	bool hasEyeR();
+	/**
+	 *
+	 * @return
+	 */
+	bool hasEyeBrowL();
+	/**
+	 *
+	 * @return
+	 */
+	bool hasEyeBrowR();
+	/**
+	 *
+	 * @return
+	 */
+	bool hasNose();
+	/**
+	 *
+	 * @return
+	 */
+	bool hasMouth();
+	/**
+	 *
+	 * @return
+	 */
+	CvRect * getFace();
+	/**
+	 *
+	 * @return
+	 */
+	CvRect * getEyeL();
+	/**
+	 *
+	 * @return
+	 */
+	CvRect * getEyeR();
+	/**
+	 *
+	 * @return
+	 */
+	CvRect * getEyeBrowL();
+	/**
+	 *
+	 * @return
+	 */
+	CvRect * getEyeBrowR();
+	/**
+	 *
+	 * @return
+	 */
+	CvRect * getNose();
+	/**
+	 *
+	 * @return
+	 */
+	CvRect * getMouth();
 };
 
 } /* namespace facedetect */

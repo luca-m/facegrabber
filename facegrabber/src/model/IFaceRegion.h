@@ -5,134 +5,132 @@
  *      Author: stk
  */
 
-#ifndef IFACEAREA_H_
-#define IFACEAREA_H_
+#ifndef IFACEREGION_H_
+#define IFACEREGION_H_
 
-#include <string>
+#include <opencv2/opencv.hpp>
 
 using namespace std;
 
-namespace facedetect {
+namespace facegrabber {
 
 class IFaceRegion {
 public:
-
-	virtual ~IFaceRegion();
 	/**
 	 *
 	 * @return
 	 */
-	virtual CvRect * getFace();
+	virtual CvRect * getFace()=0;
 	/**
 	 *
 	 * @return
 	 */
-	virtual CvRect * getEyeL();
+	virtual CvRect * getEyeL()=0;
 	/**
 	 *
 	 * @return
 	 */
-	virtual CvRect * getEyeR();
+	virtual CvRect * getEyeR()=0;
 	/**
 	 *
 	 * @return
 	 */
-	virtual CvRect * getEyeBrowL();
+	virtual CvRect * getEyeBrowL()=0;
 	/**
 	 *
 	 * @return
 	 */
-	virtual CvRect * getEyeBrowR();
+	virtual CvRect * getEyeBrowR()=0;
 	/**
 	 *
 	 * @return
 	 */
-	virtual CvRect * getNose();
+	virtual CvRect * getNose()=0;
 	/**
 	 *
 	 * @return
 	 */
-	virtual CvRect * getMouth();
+	virtual CvRect * getMouth()=0;
 
 	/**
 	 *
 	 * @param r
 	 */
-	virtual void setFace(CvRect * r);
+	virtual void setFace(CvRect * r)=0;
 	/**
 	 *
 	 * @param r
 	 */
-	virtual void setEyeL(CvRect * r);
+	virtual void setEyeL(CvRect * r)=0;
 	/**
 	 *
 	 * @param r
 	 */
-	virtual void setEyeR(CvRect * r);
+	virtual void setEyeR(CvRect * r)=0;
 	/**
 	 *
 	 * @param r
 	 */
-	virtual void setEyeBrowL(CvRect * r);
+	virtual void setEyeBrowL(CvRect * r)=0;
 	/**
 	 *
 	 * @param r
 	 */
-	virtual void setEyeBrowR(CvRect * r);
+	virtual void setEyeBrowR(CvRect * r)=0;
 	/**
 	 *
 	 * @param r
 	 */
-	virtual void setNose(CvRect * r);
+	virtual void setNose(CvRect * r)=0;
 	/**
 	 *
 	 * @param r
 	 */
-	virtual void setMouth(CvRect * r);
+	virtual void setMouth(CvRect * r)=0;
 
 	/**
 	 *
 	 * @return
 	 */
-	virtual bool isComplete();
+	virtual bool isComplete()=0;
 
 	/**
 	 *
 	 * @return
 	 */
-	virtual bool hasFace();
+	virtual bool hasFace()=0;
 	/**
 	 *
 	 * @return
 	 */
-	virtual bool hasEyeL();
+	virtual bool hasEyeL()=0;
 	/**
 	 *
 	 * @return
 	 */
-	virtual bool hasEyeR();
+	virtual bool hasEyeR()=0;
 	/**
 	 *
 	 * @return
 	 */
-	virtual bool hasEyeBrowL();
+	virtual bool hasEyeBrowL()=0;
 	/**
 	 *
 	 * @return
 	 */
-	virtual bool hasEyeBrowR();
+	virtual bool hasEyeBrowR()=0;
 	/**
 	 *
 	 * @return
 	 */
-	virtual bool hasNose();
+	virtual bool hasNose()=0;
 	/**
 	 *
 	 * @return
 	 */
-	virtual bool hasMouth();
+	virtual bool hasMouth()=0;
 
 };
 
-} /* namespace facedetect */
-#endif /* IFACEAREA_H_ */
+} /* namespace facegrabber */
+#endif /* IFACEREGION_H_ */
