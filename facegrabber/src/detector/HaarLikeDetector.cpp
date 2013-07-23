@@ -5,8 +5,8 @@
  *      Author: stk
  */
 
-#include "HaarLikeDetector.h"
-#include "../model/Face.h"
+#include "../../include/detector/HaarLikeDetector.h"
+#include "../../include/model/Face.h"
 
 using namespace std;
 

@@ -5,7 +5,7 @@
  *      Author: stk
  */
 
-#include "Utils.h"
+#include "../../include/misc/Utils.h"
 
 namespace facegrabber {
 
