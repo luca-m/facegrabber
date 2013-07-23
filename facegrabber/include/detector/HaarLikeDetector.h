@@ -56,7 +56,11 @@ public:
 			char * eyeRight_config_file, char * nose_config_file,
 			char * mouth_config_file, bool printRoi);
 	virtual ~HaarLikeDetector();
-
+	/**
+	 *
+	 * @param image
+	 * @return
+	 */
 	IFaceRegion & detect(IplImage * image);
 };
 

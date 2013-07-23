@@ -5,7 +5,7 @@
  *      Author: stk
  */
 
-#include "CamCapture.h"
+#include "../../include/capture/CamCapture.h"
 
 namespace facegrabber {
 

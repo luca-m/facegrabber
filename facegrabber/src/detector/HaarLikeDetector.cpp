@@ -5,8 +5,8 @@
  *      Author: stk
  */
 
-#include "HaarLikeDetector.h"
-#include "../model/Face.h"
+#include "../../include/detector/HaarLikeDetector.h"
+#include "../../include/model/Face.h"
 
 using namespace std;
 
@@ -165,7 +165,7 @@ HaarLikeDetector::~HaarLikeDetector() {
 }
 
 IFaceRegion & HaarLikeDetector::detect(IplImage * frame) {
-	IFaceRegion &face = * new Face(0, 0, 0, 0, 0, 0, 0);
+	facegrabber::IFaceRegion &face = * new facegrabber::Face(0, 0, 0, 0, 0, 0, 0);
 	IplImage * im_gray;
 	if (frame == 0)
 		return face;

@@ -5,7 +5,7 @@
  *      Author: stk
  */
 
-#include "Face.h"
+#include "../../include/model/Face.h"
 
 namespace facegrabber {
 

@@ -31,7 +31,10 @@ public:
 	 * @param camNum
 	 */
 	CamCapture(int camNum);
-	~CamCapture();
+	/**
+	 *
+	 */
+	virtual ~CamCapture();
 	/**
 	 *
 	 * @return

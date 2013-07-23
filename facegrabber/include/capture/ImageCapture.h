@@ -24,6 +24,9 @@ public:
 	 * @param filepath
 	 */
 	ImageCapture(char * filepath);
+	/**
+	 *
+	 */
 	virtual ~ImageCapture();
 
 	/**
