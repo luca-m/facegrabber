@@ -140,4 +140,5 @@
 			<path value=""/>
 		</doc-comment-owner>
 	</storageModule>
+	<storageModule moduleId="refreshScope"/>
 </cproject>

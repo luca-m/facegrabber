@@ -7,7 +7,7 @@
 
 #include <opencv2/opencv.hpp>
 
-namespace graphics {
+namespace misc {
 /**
  * \brief
  * @param window_title
@@ -41,7 +41,8 @@ void show_histogram(char* window_title, IplImage* src, char* channel_name) {
 	cvSet(canvas, CV_RGB(255,255,255), NULL);
 
 	/* Reset histogram */
-	for (j = 0; j < bins - 1; hist[j] = 0, j++);
+	for (j = 0; j < bins - 1; hist[j] = 0, j++)
+		;
 	for (i = 0; i < img->height; i++) {
 		uchar* ptr = (uchar*) (img->imageData + i * img->widthStep);
 		for (j = 0; j < img->width; j += img->nChannels)
@@ -61,5 +62,20 @@ void show_histogram(char* window_title, IplImage* src, char* channel_name) {
 	cvReleaseImage(&img);
 }
 
-};
+/**
+ *
+ * @param img
+ * @param roiRect
+ * @return
+ */
+IplImage* getSubImg(IplImage* img, CvRect *roiRect) {
+	cvSetImageROI(img, *roiRect);
+	IplImage* subImg = cvCreateImage(cvSize(roiRect->width, roiRect->height),
+			img->depth, img->nChannels);
+	cvCopy(img, subImg, 0);
+	cvResetImageROI(img);
+	return subImg;
+}
+
+} /* namespace misc */
 
