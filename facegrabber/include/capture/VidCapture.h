@@ -13,7 +13,7 @@
 
 namespace facegrabber {
 
-class VideoCapture: public facegrabber::ICapture {
+class VidCapture: public facegrabber::ICapture {
 private:
 	CvCapture* capture;
 public:
@@ -21,11 +21,11 @@ public:
 	 *
 	 * @param
 	 */
-	VideoCapture(char * filePath);
+	VidCapture(char * filePath);
 	/**
 	 *
 	 */
-	virtual ~VideoCapture();
+	virtual ~VidCapture();
 	/**
 	 *
 	 * @return

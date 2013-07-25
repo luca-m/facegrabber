@@ -7,10 +7,7 @@
 
 #include "../../include/misc/Utils.h"
 
-namespace facegrabber {
-
-void show_histogram(char* window_title, IplImage* src,
-		char* channel_name) {
+void show_histogram(char* window_title, IplImage* src, char* channel_name) {
 	IplImage* img, *canvas;
 	int bins = 256;
 	int hist[bins];
@@ -57,8 +54,12 @@ void show_histogram(char* window_title, IplImage* src,
 	cvShowImage(window_title, canvas);
 	cvReleaseImage(&img);
 }
-;
-
+IplImage* getImgCopy(IplImage* img) {
+	IplImage* copy = cvCreateImage(cvSize(img->width, img->height), img->depth,
+			img->nChannels);
+	cvCopy(img, copy, 0);
+	return copy;
+}
 IplImage* getSubImg(IplImage* img, CvRect *roiRect) {
 	cvSetImageROI(img, *roiRect);
 	IplImage* subImg = cvCreateImage(cvSize(roiRect->width, roiRect->height),
@@ -67,7 +68,4 @@ IplImage* getSubImg(IplImage* img, CvRect *roiRect) {
 	cvResetImageROI(img);
 	return subImg;
 }
-;
-
-} /* namespace misc */
 

@@ -5,27 +5,27 @@
  *      Author: stk
  */
 
-#include "../../include/capture/VideoCapture.h"
+#include "../../include/capture/VidCapture.h"
 
 namespace facegrabber {
 
-VideoCapture::VideoCapture(char * filePath) {
+VidCapture::VidCapture(char * filePath) {
 	capture = cvCaptureFromAVI(filePath);
 }
 
-VideoCapture::~VideoCapture() {
+VidCapture::~VidCapture() {
 	capture = 0;
 }
 
-bool VideoCapture::init() {
+bool VidCapture::init() {
 	return this->isReady();
 }
 
-bool VideoCapture::isReady() {
+bool VidCapture::isReady() {
 	return (this->getCapture() != 0 ? true : false);
 }
 
-IplImage * VideoCapture::nextFrame() {
+IplImage * VidCapture::nextFrame() {
 	CvCapture * cam = this->getCapture();
 	if (cam == 0)
 		return 0;
@@ -33,7 +33,7 @@ IplImage * VideoCapture::nextFrame() {
 	return image;
 }
 
-CvCapture* VideoCapture::getCapture() {
+CvCapture* VidCapture::getCapture() {
 	return this->capture;
 }
 

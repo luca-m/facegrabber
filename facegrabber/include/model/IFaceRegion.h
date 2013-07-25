@@ -16,6 +16,7 @@ namespace facegrabber {
 
 class IFaceRegion {
 public:
+	virtual ~IFaceRegion(){}
 	/**
 	 *
 	 * @return

@@ -10,6 +10,7 @@
 
 #include <opencv2/opencv.hpp>
 #include "IDetector.h"
+#include "../model/Face.h"
 
 using namespace cv;
 
@@ -32,7 +33,7 @@ protected:
 	 * @param facearea
 	 * @return
 	 */
-	virtual bool detectFace(IplImage*img, IFaceRegion & faceregion);
+	virtual bool detectFace(IplImage*img, IFaceRegion * faceregion);
 
 	/**
 	 * \brief Set features areas of a face region. It uses face area coordinate to increase accuracy.
@@ -40,7 +41,7 @@ protected:
 	 * @param facearea
 	 * @return
 	 */
-	virtual bool detectFeatures(IplImage *img, IFaceRegion & faceregion);
+	virtual bool detectFeatures(IplImage *img, IFaceRegion * faceregion);
 
 public:
 	/**
@@ -61,7 +62,7 @@ public:
 	 * @param image
 	 * @return
 	 */
-	IFaceRegion & detect(IplImage * image);
+	IFaceRegion * detect(IplImage * image);
 };
 
 } /* namespace facedetect */

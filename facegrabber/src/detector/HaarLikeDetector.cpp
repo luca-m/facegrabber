@@ -12,11 +12,11 @@ using namespace std;
 
 namespace facegrabber {
 
-
-bool HaarLikeDetector::detectFace(IplImage * img, IFaceRegion & faceregion) {
+bool HaarLikeDetector::detectFace(IplImage * img, IFaceRegion * faceregion) {
 	vector<Rect> faces;
-	CvRect * facearea = faceregion.getFace();
+	CvRect * facearea = faceregion->getFace();
 	bool hasFace = false;
+	cvShowImage("Detail 1", img);
 	/* detect faces */
 	cascade_f.detectMultiScale(img, faces, 1.1, 2, 0 | CV_HAAR_SCALE_IMAGE,
 			cvSize(40, 60));
@@ -36,10 +36,10 @@ bool HaarLikeDetector::detectFace(IplImage * img, IFaceRegion & faceregion) {
 }
 
 bool HaarLikeDetector::detectFeatures(IplImage * img,
-		IFaceRegion & faceregion) {
+		IFaceRegion * faceregion) {
 	vector<Rect> eyeL, eyeR, noses, mouths;
 	CvRect eyeROIL, eyeROIR, noseROI, mouthROI, eyeBrow, *tmp_area;
-	tmp_area = faceregion.getFace();
+	tmp_area = faceregion->getFace();
 
 	/* Set the Region of Interest for lower pattern matching area */
 	eyeROIL = cvRect(tmp_area->x + tmp_area->width / 2,
@@ -78,9 +78,9 @@ bool HaarLikeDetector::detectFeatures(IplImage * img,
 		tmp_area = (CvRect*) &eyeL[0];
 		tmp_area->x += eyeROIL.x;
 		tmp_area->y += eyeROIL.y + tmp_area->height / 4;
-		faceregion.setEyeL(tmp_area);
+		faceregion->setEyeL(tmp_area);
 	} else {
-		faceregion.setEyeL(0);
+		faceregion->setEyeL(0);
 	}
 
 	cvSetImageROI(img, eyeROIR);
@@ -91,9 +91,9 @@ bool HaarLikeDetector::detectFeatures(IplImage * img,
 		tmp_area = (CvRect*) &eyeR[0];
 		tmp_area->x += eyeROIR.x;
 		tmp_area->y += eyeROIR.y;
-		faceregion.setEyeR(tmp_area);
+		faceregion->setEyeR(tmp_area);
 	} else {
-		faceregion.setEyeR(0);
+		faceregion->setEyeR(0);
 	}
 
 	/* detect nose (first one) */
@@ -105,9 +105,9 @@ bool HaarLikeDetector::detectFeatures(IplImage * img,
 		tmp_area = (CvRect*) &noses[0];
 		tmp_area->x += noseROI.x;
 		tmp_area->y += noseROI.y;
-		faceregion.setNose(tmp_area);
+		faceregion->setNose(tmp_area);
 	} else {
-		faceregion.setNose(0);
+		faceregion->setNose(0);
 	}
 
 	/* detect mouth (first one) */
@@ -119,30 +119,29 @@ bool HaarLikeDetector::detectFeatures(IplImage * img,
 		tmp_area = (CvRect*) &mouths[0];
 		tmp_area->x += mouthROI.x;
 		tmp_area->y += mouthROI.y;
-		faceregion.setMouth(tmp_area);
+		faceregion->setMouth(tmp_area);
 	} else {
-		faceregion.setMouth(0);
+		faceregion->setMouth(0);
 	}
 
 	/* estimate eyebrows using face proportions */
-	if (faceregion.hasEyeL()) {
+	if (faceregion->hasEyeL()) {
 		eyeBrow = cvRect(0, 0, 0, 0);
-		eyeBrow.x = faceregion.getEyeL()->x - 10;
-		eyeBrow.y = faceregion.getEyeL()->y - faceregion.getEyeL()->height / 2;
-		eyeBrow.width = faceregion.getEyeL()->width + 13;
-		eyeBrow.height = faceregion.getEyeL()->height;
-		faceregion.setEyeBrowL(&eyeBrow);
+		eyeBrow.x = faceregion->getEyeL()->x - 10;
+		eyeBrow.y = faceregion->getEyeL()->y - faceregion->getEyeL()->height / 2;
+		eyeBrow.width = faceregion->getEyeL()->width + 13;
+		eyeBrow.height = faceregion->getEyeL()->height;
+		faceregion->setEyeBrowL(&eyeBrow);
 	}
-	if (faceregion.hasEyeR()) {
-		eyeBrow.x = faceregion.getEyeR()->x - 13;
-		eyeBrow.y = faceregion.getEyeR()->y - faceregion.getEyeR()->height / 2;
-		eyeBrow.width = faceregion.getEyeR()->width + 10;
-		eyeBrow.height = faceregion.getEyeR()->height;
-		faceregion.setEyeBrowR(&eyeBrow);
+	if (faceregion->hasEyeR()) {
+		eyeBrow.x = faceregion->getEyeR()->x - 13;
+		eyeBrow.y = faceregion->getEyeR()->y - faceregion->getEyeR()->height / 2;
+		eyeBrow.width = faceregion->getEyeR()->width + 10;
+		eyeBrow.height = faceregion->getEyeR()->height;
+		faceregion->setEyeBrowR(&eyeBrow);
 	}
-	return faceregion.isComplete();
+	return faceregion->isComplete();
 }
-
 
 HaarLikeDetector::HaarLikeDetector(char * face_config_file,
 		char * eyeLeft_config_file, char * eyeRight_config_file,
@@ -164,24 +163,29 @@ HaarLikeDetector::HaarLikeDetector(char * face_config_file,
 HaarLikeDetector::~HaarLikeDetector() {
 }
 
-IFaceRegion & HaarLikeDetector::detect(IplImage * frame) {
-	facegrabber::IFaceRegion &face = * new facegrabber::Face(0, 0, 0, 0, 0, 0, 0);
+
+//IFaceRegion * HaarLikeDetector::detect(IplImage * frame) {
+//	return (IFaceRegion *) this->detect(frame);
+//}
+
+IFaceRegion * HaarLikeDetector::detect(IplImage * frame) {
 	IplImage * im_gray;
+	Face * face=  new Face(0, 0, 0, 0, 0, 0, 0);
+
 	if (frame == 0)
 		return face;
 
 	this->currImg = frame;
+
 	im_gray = cvCreateImage(cvSize(frame->width, frame->height), IPL_DEPTH_8U,
 			1);
-
+	cvCvtColor(frame, im_gray, CV_RGB2GRAY);
 	cvEqualizeHist(im_gray, im_gray);
 
 	if (this->detectFace(im_gray, face)) {
 		this->detectFeatures(im_gray, face);
 	}
-
 	cvReleaseImage(&im_gray);
-
 	return face;
 }
 

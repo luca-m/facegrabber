@@ -10,8 +10,6 @@
 
 #include <opencv2/opencv.hpp>
 
-namespace facegrabber {
-
 /**
  *
  * @param window_title
@@ -22,11 +20,17 @@ void show_histogram(char* window_title, IplImage* src, char* channel_name);
 /**
  *
  * @param img
+ * @return
+ */
+IplImage* getImgCopy(IplImage* img);
+/**
+ *
+ * @param img
  * @param roiRect
  * @return
  */
 IplImage* getSubImg(IplImage* img, CvRect *roiRect);
 
-} /* namescpace facegrabber */
+
 
 #endif /* UTILS_H_ */

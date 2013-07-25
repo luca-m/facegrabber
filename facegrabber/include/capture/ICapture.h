@@ -17,7 +17,7 @@ namespace facegrabber {
  */
 class ICapture {
 public:
-	virtual ~ICapture(){};
+	virtual ~ICapture(){}
 	/**
 	 *
 	 * @return
