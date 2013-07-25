@@ -10,7 +10,7 @@
 
 #include <opencv2/opencv.hpp>
 #include "IDetector.h"
-#include "../model/Face.h"
+#include "../model/FaceRegion.h"
 
 using namespace cv;
 

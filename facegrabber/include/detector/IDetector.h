@@ -8,7 +8,7 @@
 #ifndef IDETECTOR_H_
 #define IDETECTOR_H_
 
-#include "../model/Face.h"
+#include "../model/IFaceRegion.h"
 
 namespace facegrabber {
 

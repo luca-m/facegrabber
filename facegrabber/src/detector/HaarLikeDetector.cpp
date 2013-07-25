@@ -6,7 +6,7 @@
  */
 
 #include "../../include/detector/HaarLikeDetector.h"
-#include "../../include/model/Face.h"
+#include "../../include/model/FaceRegion.h"
 
 using namespace std;
 
@@ -163,14 +163,9 @@ HaarLikeDetector::HaarLikeDetector(char * face_config_file,
 HaarLikeDetector::~HaarLikeDetector() {
 }
 
-
-//IFaceRegion * HaarLikeDetector::detect(IplImage * frame) {
-//	return (IFaceRegion *) this->detect(frame);
-//}
-
 IFaceRegion * HaarLikeDetector::detect(IplImage * frame) {
 	IplImage * im_gray;
-	Face * face=  new Face(0, 0, 0, 0, 0, 0, 0);
+	FaceRegion * face=  new FaceRegion();
 
 	if (frame == 0)
 		return face;

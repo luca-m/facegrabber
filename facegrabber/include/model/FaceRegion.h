@@ -14,7 +14,7 @@ using namespace std;
 
 namespace facegrabber {
 
-class Face: public IFaceRegion {
+class FaceRegion: public IFaceRegion {
 
 private:
 	/**
@@ -34,6 +34,7 @@ protected:
 	CvRect mouth;
 
 public:
+	FaceRegion();
 	/**
 	 *
 	 * @param face
@@ -44,10 +45,10 @@ public:
 	 * @param nose
 	 * @param mouth
 	 */
-	Face(CvRect * face, CvRect * eyeL, CvRect * eyeR, CvRect * eyeBL,
+	FaceRegion(CvRect * face, CvRect * eyeL, CvRect * eyeR, CvRect * eyeBL,
 			CvRect * eyeBR, CvRect * nose, CvRect * mouth);
 
-	virtual ~Face();
+	virtual ~FaceRegion();
 
 	/**
 	 *

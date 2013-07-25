@@ -5,11 +5,21 @@
  *      Author: stk
  */
 
-#include "../../include/model/Face.h"
+#include "../../include/model/FaceRegion.h"
 
 namespace facegrabber {
 
-Face::Face(CvRect * face, CvRect * eyeL, CvRect * eyeR, CvRect * eyeBL,
+
+FaceRegion::FaceRegion() {
+	copy(0, &this->face);
+	copy(0, &this->eyeL);
+	copy(0, &this->eyeR);
+	copy(0, &this->eyeBL);
+	copy(0, &this->eyeBR);
+	copy(0, &this->nose);
+}
+
+FaceRegion::FaceRegion(CvRect * face, CvRect * eyeL, CvRect * eyeR, CvRect * eyeBL,
 		CvRect * eyeBR, CvRect * nose, CvRect * mouth) {
 	copy(face, &this->face);
 	copy(eyeL, &this->eyeL);
@@ -20,10 +30,10 @@ Face::Face(CvRect * face, CvRect * eyeL, CvRect * eyeR, CvRect * eyeBL,
 	copy(mouth, &this->mouth);
 }
 
-Face::~Face() {
+FaceRegion::~FaceRegion() {
 }
 
-void Face::copy(CvRect * from, CvRect * to) {
+void FaceRegion::copy(CvRect * from, CvRect * to) {
 	if (to != 0) {
 		if (from != 0) {
 			to->x = from->x;
@@ -44,49 +54,49 @@ void Face::copy(CvRect * from, CvRect * to) {
  *
  * @param r
  */
-void Face::setFace(CvRect * r) {
+void FaceRegion::setFace(CvRect * r) {
 	copy(r, &face);
 }
 /**
  *
  * @param r
  */
-void Face::setEyeL(CvRect * r) {
+void FaceRegion::setEyeL(CvRect * r) {
 	copy(r, &eyeL);
 }
 /**
  *
  * @param r
  */
-void Face::setEyeR(CvRect * r) {
+void FaceRegion::setEyeR(CvRect * r) {
 	copy(r, &eyeR);
 }
 /**
  *
  * @param r
  */
-void Face::setEyeBrowL(CvRect * r) {
+void FaceRegion::setEyeBrowL(CvRect * r) {
 	copy(r, &eyeBL);
 }
 /**
  *
  * @param r
  */
-void Face::setEyeBrowR(CvRect * r) {
+void FaceRegion::setEyeBrowR(CvRect * r) {
 	copy(r, &eyeBR);
 }
 /**
  *
  * @param r
  */
-void Face::setNose(CvRect * r) {
+void FaceRegion::setNose(CvRect * r) {
 	copy(r, &nose);
 }
 /**
  *
  * @param r
  */
-void Face::setMouth(CvRect * r) {
+void FaceRegion::setMouth(CvRect * r) {
 	copy(r, &mouth);
 }
 
@@ -94,49 +104,49 @@ void Face::setMouth(CvRect * r) {
  *
  * @return
  */
-CvRect * Face::getFace() {
+CvRect * FaceRegion::getFace() {
 	return &face;
 }
 /**
  *
  * @return
  */
-CvRect * Face::getEyeL() {
+CvRect * FaceRegion::getEyeL() {
 	return &eyeL;
 }
 /**
  *
  * @return
  */
-CvRect * Face::getEyeR() {
+CvRect * FaceRegion::getEyeR() {
 	return &eyeR;
 }
 /**
  *
  * @return
  */
-CvRect * Face::getEyeBrowL() {
+CvRect * FaceRegion::getEyeBrowL() {
 	return &eyeBL;
 }
 /**
  *
  * @return
  */
-CvRect * Face::getEyeBrowR() {
+CvRect * FaceRegion::getEyeBrowR() {
 	return &eyeBR;
 }
 /**
  *
  * @return
  */
-CvRect * Face::getNose() {
+CvRect * FaceRegion::getNose() {
 	return &nose;
 }
 /**
  *
  * @return
  */
-CvRect * Face::getMouth() {
+CvRect * FaceRegion::getMouth() {
 	return &mouth;
 }
 
@@ -144,7 +154,7 @@ CvRect * Face::getMouth() {
  *
  * @return
  */
-bool Face::hasFace() {
+bool FaceRegion::hasFace() {
 	return (face.x == 0 && face.y == 0 && face.height == 0 && face.width == 0 ?
 			false : true);
 }
@@ -152,7 +162,7 @@ bool Face::hasFace() {
  *
  * @return
  */
-bool Face::hasEyeL() {
+bool FaceRegion::hasEyeL() {
 	return (eyeL.x == 0 && eyeL.y == 0 && eyeL.height == 0 && eyeL.width == 0 ?
 			false : true);
 }
@@ -160,7 +170,7 @@ bool Face::hasEyeL() {
  *
  * @return
  */
-bool Face::hasEyeR() {
+bool FaceRegion::hasEyeR() {
 	return (eyeR.x == 0 && eyeR.y == 0 && eyeR.height == 0 && eyeR.width == 0 ?
 			false : true);
 }
@@ -168,7 +178,7 @@ bool Face::hasEyeR() {
  *
  * @return
  */
-bool Face::hasEyeBrowL() {
+bool FaceRegion::hasEyeBrowL() {
 	return (eyeBL.x == 0 && eyeBL.y == 0 && eyeBL.height == 0
 			&& eyeBL.width == 0 ? false : true);
 }
@@ -176,7 +186,7 @@ bool Face::hasEyeBrowL() {
  *
  * @return
  */
-bool Face::hasEyeBrowR() {
+bool FaceRegion::hasEyeBrowR() {
 	return (eyeBR.x == 0 && eyeBR.y == 0 && eyeBR.height == 0
 			&& eyeBR.width == 0 ? false : true);
 }
@@ -184,7 +194,7 @@ bool Face::hasEyeBrowR() {
  *
  * @return
  */
-bool Face::hasNose() {
+bool FaceRegion::hasNose() {
 	return (nose.x == 0 && nose.y == 0 && nose.height == 0 && nose.width == 0 ?
 			false : true);
 }
@@ -192,7 +202,7 @@ bool Face::hasNose() {
  *
  * @return
  */
-bool Face::hasMouth() {
+bool FaceRegion::hasMouth() {
 	return (mouth.x == 0 && mouth.y == 0 && mouth.height == 0
 			&& mouth.width == 0 ? false : true);
 }
@@ -200,7 +210,7 @@ bool Face::hasMouth() {
  *
  * @return
  */
-bool Face::isComplete() {
+bool FaceRegion::isComplete() {
 	return hasMouth() && hasEyeL() && hasEyeR() && hasNose() && hasEyeBrowL()
 			&& hasEyeBrowR() && hasFace();
 }
