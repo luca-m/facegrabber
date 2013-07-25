@@ -5,15 +5,18 @@
  *      Author: stk
  */
 
+#include <stdlib.h>
 #include <stdio.h>
 
-//#include "capture/CamCapture.cpp"
-#include "capture/VideoCapture.cpp"
+#include <opencv2/opencv.hpp>
+
+#include "capture/VidCapture.cpp"
 #include "detector/HaarLikeDetector.cpp"
 #include "model/Face.cpp"
-#include "misc/Utils.cpp"
 
+using namespace std;
 using namespace facegrabber;
+
 
 char face_conf[] = "resources/haarcascade_frontalface_alt.xml";
 char eyeL_conf[] = "resources/haarcascade_lefteye_2splits.xml";
@@ -27,16 +30,16 @@ char video[] = "data/video.avi";
 
 int main(int argv, char * args[]) {
 	try {
+
+		VidCapture capture(video);
+		HaarLikeDetector detector(face_conf, eyeL_conf, eyeR_conf,
+				nose_conf, mouth_conf, false);
 		IplImage * image;
-		facegrabber::VideoCapture & capture = *new facegrabber::VideoCapture(
-				video);
-		facegrabber::HaarLikeDetector & detector =
-				*new facegrabber::HaarLikeDetector(face_conf, eyeL_conf,
-						eyeR_conf, nose_conf, mouth_conf, false);
+
 		//FLANDMARK_Model * model = flandmark_init("data/flandmark_model.dat");
 
-		if (!capture.init()) {
-			printf("ERR: Could not open the input device!");
+		if (!capture.isReady()) {
+			cout << "ERR: Could not open the input device!";
 			exit(-1);
 		}
 		cvNamedWindow(win_title, 1);
@@ -44,74 +47,77 @@ int main(int argv, char * args[]) {
 
 		while ((image = capture.nextFrame())) {
 
-			IFaceRegion & f = detector.detect(image);
+			IFaceRegion * f = detector.detect(image);
 
 			CvRect * area;
-			if (f.hasFace()) {
-				area = f.getFace();
+			if (f->hasFace()) {
+				area = f->getFace();
 				cvRectangle(image, cvPoint(area->x, area->y),
 						cvPoint(area->x + area->width, area->y + area->height),
 						CV_RGB(127, 127, 127), 1, 8, 0);
 			}
 
-			if (f.hasEyeL()) {
-				area = f.getEyeL();
+			if (f->hasEyeL()) {
+				area = f->getEyeL();
 				cvRectangle(image, cvPoint(area->x, area->y),
 						cvPoint(area->x + area->width, area->y + area->height),
 						CV_RGB(255, 127, 127), 1, 8, 0);
-				IplImage * t = facegrabber::getSubImg(image, area);
-				IplImage * tgray = cvCreateImage(cvSize(t->width, t->height),
-				IPL_DEPTH_8U, 1);
-				cvCvtColor(t, tgray, CV_RGB2GRAY);
-				cvEqualizeHist(tgray, tgray);
-				cvSmooth(tgray, tgray, CV_GAUSSIAN, 7, 7, 2.6);
+				//IplImage * t = getSubImg(image, area);
+				//IplImage * tgray = cvCreateImage(cvSize(t->width, t->height),
+				//IPL_DEPTH_8U, 1);
+				//cvCvtColor(t, tgray, CV_RGB2GRAY);
+				//cvEqualizeHist(tgray, tgray);
+				//cvSmooth(tgray, tgray, CV_GAUSSIAN, 7, 7, 2.6);
 
 			}
 
-			if (f.hasEyeBrowL()) {
-				area = f.getEyeBrowL();
+			if (f->hasEyeBrowL()) {
+				area = f->getEyeBrowL();
 				cvRectangle(image, cvPoint(area->x, area->y),
 						cvPoint(area->x + area->width, area->y + area->height),
 						CV_RGB(127, 255, 255), 1, 8, 0);
 			}
 
-			if (f.hasEyeBrowR()) {
-				area = f.getEyeBrowR();
+			if (f->hasEyeBrowR()) {
+				area = f->getEyeBrowR();
 				cvRectangle(image, cvPoint(area->x, area->y),
 						cvPoint(area->x + area->width, area->y + area->height),
 						CV_RGB(127, 255, 255), 1, 8, 0);
 			}
 
-			if (f.hasEyeR()) {
-				area = f.getEyeR();
+			if (f->hasEyeR()) {
+				area = f->getEyeR();
 				cvRectangle(image, cvPoint(area->x, area->y),
 						cvPoint(area->x + area->width, area->y + area->height),
 						CV_RGB(127, 127, 127), 1, 8, 0);
 			}
 
-			if (f.hasMouth()) {
-				area = f.getMouth();
+			if (f->hasMouth()) {
+				area = f->getMouth();
 				cvRectangle(image, cvPoint(area->x, area->y),
 						cvPoint(area->x + area->width, area->y + area->height),
 						CV_RGB(127, 127, 127), 1, 8, 0);
 			}
 
-			if (f.hasNose()) {
-				area = f.getNose();
+			if (f->hasNose()) {
+				area = f->getNose();
 				cvRectangle(image, cvPoint(area->x, area->y),
 						cvPoint(area->x + area->width, area->y + area->height),
 						CV_RGB(127, 127, 127), 1, 8, 0);
 			}
 			cvShowImage(win_title, image);
+			//cvShowImage(win_detail_1, image);
 			//cv::Mat frame(image);
-			//cv::imshow(win_title,frame);
+			//cv::imshow(win_detail_1,frame);
+
+
 			int c = cvWaitKey(50);
 			if ((char) c == 'q') {
 				break;
 			}
 		}
 	} catch (int e) {
-		printf("Exception #%d\n", e);
+		cout << "Exception #" << e;
 	}
 
 }
