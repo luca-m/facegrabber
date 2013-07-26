@@ -5,7 +5,7 @@
  *      Author: stk
  */
 
-#include "../../include/capture/ImageCapture.h"
+#include "ImageCapture.h"
 
 namespace facegrabber {
 
@@ -15,6 +15,10 @@ ImageCapture::ImageCapture(char * filepath) {
 
 ImageCapture::~ImageCapture() {
 	cvReleaseImage(&image);
+}
+
+bool ImageCapture::init() {
+	return isReady();
 }
 
 bool ImageCapture::isReady() {

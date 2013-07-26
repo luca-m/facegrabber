@@ -5,8 +5,8 @@
  *      Author: stk
  */
 
-#include "../../include/detector/HaarLikeDetector.h"
-#include "../../include/model/FaceRegion.h"
+#include "HaarLikeDetector.h"
+#include "../model/FaceRegion.h"
 
 using namespace std;
 
@@ -16,7 +16,6 @@ bool HaarLikeDetector::detectFace(IplImage * img, IFaceRegion * faceregion) {
 	vector<Rect> faces;
 	CvRect * facearea = faceregion->getFace();
 	bool hasFace = false;
-	cvShowImage("Detail 1", img);
 	/* detect faces */
 	cascade_f.detectMultiScale(img, faces, 1.1, 2, 0 | CV_HAAR_SCALE_IMAGE,
 			cvSize(40, 60));
@@ -145,7 +144,7 @@ bool HaarLikeDetector::detectFeatures(IplImage * img,
 
 HaarLikeDetector::HaarLikeDetector(char * face_config_file,
 		char * eyeLeft_config_file, char * eyeRight_config_file,
-		char * nose_config_file, char * mouth_config_file, bool printRoi) {
+		char * nose_config_file, char * mouth_config_file,bool faceOnly, bool printRoi) {
 
 	cascade_f.load(face_config_file);
 	cascade_el.load(eyeLeft_config_file);
@@ -158,6 +157,7 @@ HaarLikeDetector::HaarLikeDetector(char * face_config_file,
 					&& !cascade_m.empty());
 	this->currImg = 0;
 	this->printRoi = printRoi;
+	this->faceOnly = faceOnly;
 }
 
 HaarLikeDetector::~HaarLikeDetector() {
@@ -177,7 +177,7 @@ IFaceRegion * HaarLikeDetector::detect(IplImage * frame) {
 	cvCvtColor(frame, im_gray, CV_RGB2GRAY);
 	cvEqualizeHist(im_gray, im_gray);
 
-	if (this->detectFace(im_gray, face)) {
+	if (this->detectFace(im_gray, face) && !faceOnly ) {
 		this->detectFeatures(im_gray, face);
 	}
 	cvReleaseImage(&im_gray);

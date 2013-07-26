@@ -5,7 +5,7 @@
  *      Author: stk
  */
 
-#include "../../include/misc/Utils.h"
+#include "Utils.h"
 
 void show_histogram(char* window_title, IplImage* src, char* channel_name) {
 	IplImage* img, *canvas;

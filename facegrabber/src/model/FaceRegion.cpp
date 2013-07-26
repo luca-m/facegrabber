@@ -5,7 +5,7 @@
  *      Author: stk
  */
 
-#include "../../include/model/FaceRegion.h"
+#include "FaceRegion.h"
 
 namespace facegrabber {
 
@@ -17,17 +17,6 @@ FaceRegion::FaceRegion() {
 	copy(0, &this->eyeBL);
 	copy(0, &this->eyeBR);
 	copy(0, &this->nose);
-}
-
-FaceRegion::FaceRegion(CvRect * face, CvRect * eyeL, CvRect * eyeR, CvRect * eyeBL,
-		CvRect * eyeBR, CvRect * nose, CvRect * mouth) {
-	copy(face, &this->face);
-	copy(eyeL, &this->eyeL);
-	copy(eyeR, &this->eyeR);
-	copy(eyeBL, &this->eyeBL);
-	copy(eyeBR, &this->eyeBR);
-	copy(nose, &this->nose);
-	copy(mouth, &this->mouth);
 }
 
 FaceRegion::~FaceRegion() {
