@@ -3,8 +3,6 @@
 	<name>facegrabber.test</name>
 	<comment></comment>
 	<projects>
-		<project>facegrabber</project>
-		<project>flandmark-RELEASE@flandmark</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>
