@@ -24,9 +24,7 @@
 								<option id="gnu.c.compiler.option.debugging.level.621699006" name="Debug Level" superClass="gnu.c.compiler.option.debugging.level" value="gnu.c.debugging.level.max" valueType="enumerated"/>
 								<option id="gnu.c.compiler.option.include.paths.173169642" name="Include paths (-I)" superClass="gnu.c.compiler.option.include.paths" valueType="includePath">
 									<listOptionValue builtIn="false" value="/usr/local/include/opencv"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/facegrabber/flandmark}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/facegrabber/include}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/facegrabber/src}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/facegrabber/src/misc}&quot;"/>
 								</option>
 								<option id="gnu.c.compiler.option.include.files.1802214537" name="Include files (-include)" superClass="gnu.c.compiler.option.include.files"/>
 								<inputType id="cdt.managedbuild.tool.gnu.c.compiler.input.1337629800" superClass="cdt.managedbuild.tool.gnu.c.compiler.input"/>
@@ -34,7 +32,9 @@
 							<tool id="cdt.managedbuild.tool.gnu.cross.cpp.compiler.193362572" name="Cross G++ Compiler" superClass="cdt.managedbuild.tool.gnu.cross.cpp.compiler">
 								<option id="gnu.cpp.compiler.option.optimization.level.1307343712" name="Optimization Level" superClass="gnu.cpp.compiler.option.optimization.level" value="gnu.cpp.compiler.optimization.level.none" valueType="enumerated"/>
 								<option id="gnu.cpp.compiler.option.debugging.level.1472757948" name="Debug Level" superClass="gnu.cpp.compiler.option.debugging.level" value="gnu.cpp.compiler.debugging.level.max" valueType="enumerated"/>
-								<option id="gnu.cpp.compiler.option.include.paths.796674137" name="Include paths (-I)" superClass="gnu.cpp.compiler.option.include.paths" valueType="includePath"/>
+								<option id="gnu.cpp.compiler.option.include.paths.796674137" name="Include paths (-I)" superClass="gnu.cpp.compiler.option.include.paths" valueType="includePath">
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/facegrabber/src/misc}&quot;"/>
+								</option>
 								<inputType id="cdt.managedbuild.tool.gnu.cpp.compiler.input.161446337" superClass="cdt.managedbuild.tool.gnu.cpp.compiler.input"/>
 							</tool>
 							<tool id="cdt.managedbuild.tool.gnu.cross.c.linker.1372052905" name="Cross GCC Linker" superClass="cdt.managedbuild.tool.gnu.cross.c.linker"/>
@@ -62,11 +62,31 @@
 							<tool id="cdt.managedbuild.tool.gnu.cross.archiver.345895969" name="Cross GCC Archiver" superClass="cdt.managedbuild.tool.gnu.cross.archiver"/>
 							<tool id="cdt.managedbuild.tool.gnu.cross.assembler.337484590" name="Cross GCC Assembler" superClass="cdt.managedbuild.tool.gnu.cross.assembler">
 								<option id="gnu.both.asm.option.include.paths.1623200140" name="Include paths (-I)" superClass="gnu.both.asm.option.include.paths" valueType="includePath">
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/facegrabber/flandmark}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/facegrabber/include}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/facegrabber/src}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/facegrabber/src/misc}&quot;"/>
 								</option>
 								<inputType id="cdt.managedbuild.tool.gnu.assembler.input.1573017681" superClass="cdt.managedbuild.tool.gnu.assembler.input"/>
+							</tool>
+						</toolChain>
+					</folderInfo>
+					<folderInfo id="cdt.managedbuild.config.gnu.cross.exe.debug.1741272922.374396280" name="/" resourcePath="src">
+						<toolChain id="cdt.managedbuild.toolchain.gnu.cross.exe.debug.101405315" name="Cross GCC" superClass="cdt.managedbuild.toolchain.gnu.cross.exe.debug" unusedChildren="">
+							<targetPlatform archList="all" binaryParser="org.eclipse.cdt.core.ELF" id="cdt.managedbuild.targetPlatform.gnu.cross" isAbstract="false" osList="all" superClass="cdt.managedbuild.targetPlatform.gnu.cross"/>
+							<tool id="cdt.managedbuild.tool.gnu.cross.c.compiler.575237052" name="Cross GCC Compiler" superClass="cdt.managedbuild.tool.gnu.cross.c.compiler.1302827371">
+								<option id="gnu.c.compiler.option.include.paths.722090270" name="Include paths (-I)" superClass="gnu.c.compiler.option.include.paths" valueType="includePath">
+									<listOptionValue builtIn="false" value="/usr/local/include/opencv"/>
+								</option>
+								<inputType id="cdt.managedbuild.tool.gnu.c.compiler.input.1645897604" superClass="cdt.managedbuild.tool.gnu.c.compiler.input"/>
+							</tool>
+							<tool id="cdt.managedbuild.tool.gnu.cross.cpp.compiler.1775229749" name="Cross G++ Compiler" superClass="cdt.managedbuild.tool.gnu.cross.cpp.compiler.193362572">
+								<option id="gnu.cpp.compiler.option.include.paths.387456283" name="Include paths (-I)" superClass="gnu.cpp.compiler.option.include.paths"/>
+								<inputType id="cdt.managedbuild.tool.gnu.cpp.compiler.input.1408339175" superClass="cdt.managedbuild.tool.gnu.cpp.compiler.input"/>
+							</tool>
+							<tool id="cdt.managedbuild.tool.gnu.cross.c.linker.399566716" name="Cross GCC Linker" superClass="cdt.managedbuild.tool.gnu.cross.c.linker.1372052905"/>
+							<tool id="cdt.managedbuild.tool.gnu.cross.cpp.linker.794665672" name="Cross G++ Linker" superClass="cdt.managedbuild.tool.gnu.cross.cpp.linker.1416660261"/>
+							<tool id="cdt.managedbuild.tool.gnu.cross.archiver.1897428625" name="Cross GCC Archiver" superClass="cdt.managedbuild.tool.gnu.cross.archiver.345895969"/>
+							<tool id="cdt.managedbuild.tool.gnu.cross.assembler.1332398461" name="Cross GCC Assembler" superClass="cdt.managedbuild.tool.gnu.cross.assembler.337484590">
+								<option id="gnu.both.asm.option.include.paths.2090135124" name="Include paths (-I)" superClass="gnu.both.asm.option.include.paths"/>
+								<inputType id="cdt.managedbuild.tool.gnu.assembler.input.1645465427" superClass="cdt.managedbuild.tool.gnu.assembler.input"/>
 							</tool>
 						</toolChain>
 					</folderInfo>
@@ -76,10 +96,7 @@
 					</sourceEntries>
 				</configuration>
 			</storageModule>
-			<storageModule moduleId="org.eclipse.cdt.core.externalSettings">
-				<externalSettings containerId="facegrabber;" factoryId="org.eclipse.cdt.core.cfg.export.settings.sipplier"/>
-				<externalSettings containerId="flandmark-RELEASE@flandmark;" factoryId="org.eclipse.cdt.core.cfg.export.settings.sipplier"/>
-			</storageModule>
+			<storageModule moduleId="org.eclipse.cdt.core.externalSettings"/>
 		</cconfiguration>
 		<cconfiguration id="cdt.managedbuild.config.gnu.cross.exe.release.363362030">
 			<storageModule buildSystemId="org.eclipse.cdt.managedbuilder.core.configurationDataProvider" id="cdt.managedbuild.config.gnu.cross.exe.release.363362030" moduleId="org.eclipse.cdt.core.settings" name="Release">
@@ -107,6 +124,7 @@
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/facegrabber/src}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/flandmark-RELEASE@flandmark/libflandmark}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/facegrabber/flandmark}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/facegrabber/src/misc}&quot;"/>
 								</option>
 								<inputType id="cdt.managedbuild.tool.gnu.c.compiler.input.1355257160" superClass="cdt.managedbuild.tool.gnu.c.compiler.input"/>
 							</tool>
@@ -118,6 +136,7 @@
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/facegrabber/src}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/flandmark-RELEASE@flandmark/libflandmark}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/facegrabber/flandmark}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/facegrabber/src/misc}&quot;"/>
 								</option>
 								<inputType id="cdt.managedbuild.tool.gnu.cpp.compiler.input.1841965959" superClass="cdt.managedbuild.tool.gnu.cpp.compiler.input"/>
 							</tool>
@@ -142,6 +161,7 @@
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/facegrabber/src}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/flandmark-RELEASE@flandmark/libflandmark}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/facegrabber/flandmark}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/facegrabber/src/misc}&quot;"/>
 								</option>
 								<inputType id="cdt.managedbuild.tool.gnu.assembler.input.1573198823" superClass="cdt.managedbuild.tool.gnu.assembler.input"/>
 							</tool>
@@ -179,6 +199,10 @@
 			<resource resourceType="PROJECT" workspacePath="/facegrabber.test"/>
 		</configuration>
 	</storageModule>
-	<storageModule moduleId="org.eclipse.cdt.internal.ui.text.commentOwnerProjectMappings"/>
+	<storageModule moduleId="org.eclipse.cdt.internal.ui.text.commentOwnerProjectMappings">
+		<doc-comment-owner id="org.eclipse.cdt.ui.doxygen">
+			<path value=""/>
+		</doc-comment-owner>
+	</storageModule>
 	<storageModule moduleId="org.eclipse.cdt.make.core.buildtargets"/>
 </cproject>

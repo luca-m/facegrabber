@@ -124,21 +124,22 @@ bool HaarLikeDetector::detectFeatures(IplImage * img,
 	}
 
 	/* estimate eyebrows using face proportions */
+	if (faceregion->hasEyeR()) {
+		eyeBrow.x = faceregion->getEyeR()->x - 13;
+		eyeBrow.y = faceregion->getEyeR()->y - faceregion->getEyeR()->height / 2;
+		eyeBrow.width = faceregion->getEyeR()->width + 14;
+		eyeBrow.height = faceregion->getEyeR()->height;
+		faceregion->setEyeBrowR(&eyeBrow);
+	}
 	if (faceregion->hasEyeL()) {
 		eyeBrow = cvRect(0, 0, 0, 0);
 		eyeBrow.x = faceregion->getEyeL()->x - 10;
 		eyeBrow.y = faceregion->getEyeL()->y - faceregion->getEyeL()->height / 2;
-		eyeBrow.width = faceregion->getEyeL()->width + 13;
+		eyeBrow.width = faceregion->getEyeL()->width + 14;
 		eyeBrow.height = faceregion->getEyeL()->height;
 		faceregion->setEyeBrowL(&eyeBrow);
 	}
-	if (faceregion->hasEyeR()) {
-		eyeBrow.x = faceregion->getEyeR()->x - 13;
-		eyeBrow.y = faceregion->getEyeR()->y - faceregion->getEyeR()->height / 2;
-		eyeBrow.width = faceregion->getEyeR()->width + 10;
-		eyeBrow.height = faceregion->getEyeR()->height;
-		faceregion->setEyeBrowR(&eyeBrow);
-	}
+
 	return faceregion->isComplete();
 }
 

@@ -1,15 +1,19 @@
-/*
- * testDetection.cpp
- *
- *  Created on: Jul 23, 2013
- *      Author: stk
- */
-
+///*
+// * testDetection.cpp
+// *
+// *  Created on: Jul 23, 2013
+// *      Author: stk
+// */
+#include <sstream>
+#include <stdlib.h>
+#include <stdio.h>
+#include <limits>
 #include <stdlib.h>
 #include <stdio.h>
 
 #include <opencv2/opencv.hpp>
 
+#include "../src/capture/ImageCapture.h"
 #include "../src/capture/VidCapture.h"
 #include "../src/detector/HaarLikeDetector.h"
 #include "../src/locator/FlandmarkLocator.h"
@@ -32,30 +36,48 @@ char mouth_conf[] = "resources/haarcascade_mcs_mouth.xml";
 char fm_model[] = "resources/flandmark_model.dat";
 
 char lena[] = "data/lena.tif";
-char video[] = "data/seq_300frames.avi";// "data/video.avi";//
+char movie[] = "data/seq_300frames.avi";
+char video[] = "data/video.avi";//
 
 int main(int argv, char * args[]) {
 	try {
-
+		//ImageCapture capture(lena);
 		VidCapture capture(video);
 		HaarLikeDetector detector(face_conf, eyeL_conf, eyeR_conf, nose_conf,
-				mouth_conf, true,false);
+				mouth_conf, false,false);
 		FlandmarkLocator locator(fm_model);
 		IplImage * image = 0, *image2 = 0;
 
 		if (!capture.isReady()) {
 			cout << "ERR: Could not open the input device!";
-			exit(-1);
+			return -1;
 		}
 		cvNamedWindow(win_detection, 1);
-		cvNamedWindow(win_localization, 1);
+		//cvNamedWindow(win_localization, 1);
 
 		while ((image = capture.nextFrame())) {
-			if (image2 != 0) {
-				cvReleaseImage(&image2);
-			}
-			image2 = getImgCopy(image);
+			//if (image2 != 0) {
+			//	cvReleaseImage(&image2);
+			//}
+			image2 = image;//getImgCopy(image);
 			IFaceRegion * f = detector.detect(image);
+			Mat im(image);
+			cvtColor(im,im,CV_BGR2GRAY);
+			vector<Point2f> p;
+			cv::Rect face;
+			face.x=f->getFace()->x;
+			face.y=f->getFace()->y;
+			face.width=f->getFace()->width;
+			face.height=f->getFace()->height;
+
+			goodFeaturesToTrack(im(face ), p, 500, 0.1, 10, Mat(), 3, 0, 0.04);
+			cornerSubPix( im( face ), p, Size(10, 10), Size(-1, -1),
+					TermCriteria(TermCriteria::COUNT | TermCriteria::EPS, 20,
+							0.03));
+			for (int j = 0; j < p.size(); j++) {
+				circle(im, Point(p.at(j).x+face.x,p.at(j).y+face.y), 3, Scalar(0, 255, 0), -1, 8);
+			}
+			imshow("GOOD FEATS",im);
 
 			CvRect * area;
 			if (f->hasFace()) {
@@ -115,7 +137,7 @@ int main(int argv, char * args[]) {
 			}
 
 			IFacePoints * points = locator.locate(image2, f);
-
+			// Eyes
 			if (points->hasEyeLCornerL()) {
 				cvCircle(image2, *points->getEyeLCornerL(), 3, CV_RGB(0, 0,255),
 				CV_FILLED);
@@ -132,6 +154,25 @@ int main(int argv, char * args[]) {
 				cvCircle(image2, *points->getEyeRCornerR(), 3, CV_RGB(0, 127,127),
 				CV_FILLED);
 			}
+			// Eyebrows
+			if (points->hasEyeBrowLCornerL()) {
+				cvCircle(image2, *points->getEyeBrowLCornerL(), 3, CV_RGB(255, 0,255),
+				CV_FILLED);
+			}
+			if (points->hasEyeBrowLCornerR()) {
+				cvCircle(image2, *points->getEyeBrowLCornerR(), 3, CV_RGB(127, 0,127),
+				CV_FILLED);
+			}
+			if (points->hasEyeBrowRCornerL()) {
+				cvCircle(image2, *points->getEyeBrowRCornerL(), 3, CV_RGB(255, 0,255),
+				CV_FILLED);
+			}
+			if (points->hasEyeBrowRCornerR()) {
+				cvCircle(image2, *points->getEyeBrowRCornerR(), 3, CV_RGB(127, 127,0),
+				CV_FILLED);
+			}
+
+			// Mouth
 			if (points->hasMouthCornerL()) {
 				cvCircle(image2, *points->getMouthCornerL(), 3, CV_RGB(0, 0,255),
 				CV_FILLED);
@@ -140,20 +181,20 @@ int main(int argv, char * args[]) {
 				cvCircle(image2, *points->getMouthCornerR(), 3, CV_RGB(0, 0,127),
 				CV_FILLED);
 			}
+			// Nose
 			if (points->hasNoseCenter()) {
 				cvCircle(image2, *points->getNoseCenter(), 3, CV_RGB(255, 0,0),
 				CV_FILLED);
 			}
 
 
-
 			cvShowImage(win_detection, image);
-			cvShowImage(win_localization, image2);
+			//cvShowImage(win_localization, image2);
 			//cvShowImage(win_detail_1, image);
 			//cv::Mat frame(image);
 			//cv::imshow(win_detail_1,frame);
 
-			int c = cvWaitKey(1);
+			int c = cvWaitKey(1500);
 			if ((char) c == 'q') {
 				break;
 			}
